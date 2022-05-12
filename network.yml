@@ -1,9 +1,13 @@
 Description: >
   Christopher Adamson / Udacity Cloud Dev Ops Engineer Program
+
   In this project, web servers are deployed for a highly available web app 
   using CloudFormation. It involves writing the code that creates and deploys 
   the infrastructure/application for an Instagram-like app. It includes 
-  networking components, by servers, security roles and software. 
+  networking components, by servers, security roles and software.
+
+  The networking infrastructure is logically separated from the servers
+  and security groups.
 
 Parameters:
   # Paramenters are entirely optional.
@@ -39,7 +43,6 @@ Parameters:
       Type: String
       Default: 10.0.3.0/24
 
-
 Resources:
 
   VPC:
@@ -65,6 +68,49 @@ Resources:
           InternetGatewayId: !Ref InternetGateway
           VpcId: !Ref VPC
 
+  PublicSubnet1:
+      Type: AWS::EC2::Subnet
+      Properties:
+          VpcId: !Ref VPC
+          AvailabilityZone: !Select [ 0, !GetAZs '' ]
+          CidrBlock: !Ref PublicSubnet1CIDR
+          MapPublicIpOnLaunch: true
+          Tags:
+              - Key: Name
+                Value: !Sub ${EnvironmentName} Public Subnet (AZ1)
+
+  PublicSubnet2:
+      Type: AWS::EC2::Subnet
+      Properties:
+          VpcId: !Ref VPC
+          AvailabilityZone: !Select [ 1, !GetAZs '' ]
+          CidrBlock: !Ref PublicSubnet2CIDR
+          MapPublicIpOnLaunch: true
+          Tags:
+              - Key: Name
+                Value: !Sub ${EnvironmentName} Public Subnet (AZ2)
+
+  PrivateSubnet1:
+      Type: AWS::EC2::Subnet
+      Properties:
+          VpcId: !Ref VPC
+          AvailabilityZone: !Select [ 0, !GetAZs '' ]
+          CidrBlock: !Ref PrivateSubnet1CIDR
+          MapPublicIpOnLaunch: false
+          Tags:
+              - Key: Name
+                Value: !Sub ${EnvironmentName} Private Subnet (AZ1)
+
+  PrivateSubnet2:
+      Type: AWS::EC2::Subnet
+      Properties:
+          VpcId: !Ref VPC
+          AvailabilityZone: !Select [ 1, !GetAZs '' ]
+          CidrBlock: !Ref PrivateSubnet2CIDR
+          MapPublicIpOnLaunch: false
+          Tags:
+              - Key: Name
+                Value: !Sub ${EnvironmentName} Private Subnet (AZ2)
 
 
 
