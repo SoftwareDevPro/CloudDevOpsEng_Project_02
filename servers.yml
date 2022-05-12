@@ -1,0 +1,12 @@
+
+Description: >
+  Christopher Adamson / Udacity Cloud Dev Ops Engineer Program
+
+  The servers and security groups are logically separated from the networking 
+  infrastructure.
+
+Parameters:
+  
+  EnvironmentName:
+      Description: An environment name that will be prefixed to resource names
+      Type: String
