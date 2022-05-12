@@ -15,9 +15,30 @@ Parameters:
       Type: String
 
   VpcCIDR: 
-      Description: Please enter the IP range (CIDR notation) for this VPC
+      Description: VPC CIDR
       Type: String
       Default: 10.0.0.0/16
+
+  PublicSubnet1CIDR:
+      Description: Public Subnet 1 CIDR
+      Type: String
+      Default: 10.0.0.0/24
+
+  PublicSubnet2CIDR:
+      Description: Public Subnet 2 CIDR
+      Type: String
+      Default: 10.0.1.0/24
+
+  PrivateSubnet1CIDR:
+      Description: Private Subnet 2 CIDR
+      Type: String
+      Default: 10.0.2.0/24
+
+  PrivateSubnet2CIDR:
+      Description: Private Subnet 3 CIDR
+      Type: String
+      Default: 10.0.3.0/24
+
 
 Resources:
 
