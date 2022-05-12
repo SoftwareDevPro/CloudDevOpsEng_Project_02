@@ -1,18 +1,62 @@
+Description: >
+  Christopher Adamson / Udacity Cloud Dev Ops Engineer Program
+  In this project, web servers are deployed for a highly available web app 
+  using CloudFormation. It involves writing the code that creates and deploys 
+  the infrastructure/application for an Instagram-like app. It includes 
+  networking components, by servers, security roles and software. 
+
 Parameters:
   # Paramenters are entirely optional.
   # but using them will make your cloudformation templates more reusable
   # use them for things that may change over time, such as instance type,
   # VPCs and so on.
+  EnvironmentName:
+      Description: An environment name that will be prefixed to resource names
+      Type: String
+
+  VpcCIDR: 
+      Description: Please enter the IP range (CIDR notation) for this VPC
+      Type: String
+      Default: 10.0.0.0/16
+
 Resources:
+
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+      #EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref EnvironmentName
+  
+  InternetGateway:
+      Type: AWS::EC2::InternetGateway
+      Properties:
+          Tags:
+              - Key: Name
+                Value: !Ref EnvironmentName
+
+  InternetGatewayAttachment:
+      Type: AWS::EC2::VPCGatewayAttachment
+      Properties:
+          InternetGatewayId: !Ref InternetGateway
+          VpcId: !Ref VPC
+
+
+
+
   # instace profile contains the IAM Role name(s) that we want to associate to our auto scaling EC2 Servers
   # never give too much permissions to your EC2 instances! if they get hacked, the permissions get hacked also!
   # in this example, I create a Role called UdacityS3ReadOnlyC2 and just give it a policy of S3 Read-Only Access
-  ProfileWithRolesForOurApp:
-    Type: AWS::IAM::InstanceProfile
-    Properties: 
-      Roles:
-        - UdacityS3ReadOnlyEC2
-Outputs: 
+  #ProfileWithRolesForOurApp:
+  #  Type: AWS::IAM::InstanceProfile
+  #  Properties: 
+  #    Roles:
+  #      - UdacityS3ReadOnlyEC2
+
+#Outputs: 
   # This is also optional.
   # Bonus points for useful outputs!
   # for example, if you create a Load Balancer
