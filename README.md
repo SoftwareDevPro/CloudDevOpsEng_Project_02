@@ -15,3 +15,8 @@ In YAML code, the `${EnvironmentName}` would be substituted with `UdacityProject
 1.  ./create.sh mynetworkstack ./network.yml ./network-parameters.json
 2.  ./create.sh myserverstack ./servers.yml ./server-parameters.yml
 
+## To remove stacks (reverse order)
+
+1. ./delete.sh myserverstack
+2. ./delete.sh mynetworkstack
+
