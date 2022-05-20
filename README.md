@@ -20,3 +20,7 @@ In YAML code, the `${EnvironmentName}` would be substituted with `UdacityProject
 1. ./delete.sh myserverstack
 2. ./delete.sh mynetworkstack
 
+URL to website
+
+http://myser-webap-2hsexcbql0lf-1701363385.us-east-1.elb.amazonaws.com/
+
